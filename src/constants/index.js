@@ -213,30 +213,30 @@ const experiences = [
 ];
 
 const testimonials = [
-  {
-    testimonial:
-      "I thought it was impossible to make a website as beautiful as our product, but Osama proved me wrong.",
-    name: "MD Mustaqeem",
-    designation: "Ecommerce",
-    company: "QuickMart",
-    image: firstTestimonial,
-  },
-  {
-    testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Osama does.",
-    name: "Abdul Raheman",
-    designation: "Ecommerce Business",
-    company: "justbuyz",
-    image: secondTestimonial,
-  },
-  {
-    testimonial:
-      "After Osama optimized our website, our traffic increased by 50%. We can't thank them enough!",
-    name: "James Wang",
-    designation: "CTO",
-    company: "456 Enterprises",
-    image: thirdTestimonial,
-  },
+  // {
+  //   testimonial:
+  //     "I thought it was impossible to make a website as beautiful as our product, but Osama proved me wrong.",
+  //   name: "MD Mustaqeem",
+  //   designation: "Ecommerce",
+  //   company: "QuickMart",
+  //   image: firstTestimonial,
+  // },
+  // {
+  //   testimonial:
+  //     "I've never met a web developer who truly cares about their clients' success like Osama does.",
+  //   name: "Abdul Raheman",
+  //   designation: "Ecommerce Business",
+  //   company: "justbuyz",
+  //   image: secondTestimonial,
+  // },
+  // {
+  //   testimonial:
+  //     "After Osama optimized our website, our traffic increased by 50%. We can't thank them enough!",
+  //   name: "James Wang",
+  //   designation: "CTO",
+  //   company: "456 Enterprises",
+  //   image: thirdTestimonial,
+  // },
 ];
 
 const projects = [

@@ -1,4 +1,5 @@
 import logo from "./logo.png";
+import om from "./om.svg";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
@@ -43,6 +44,7 @@ import thirdTestimonial from './third testimonial.webp'
 
 export {
   logo,
+  om,
   backend,
   creator,
   mobile,

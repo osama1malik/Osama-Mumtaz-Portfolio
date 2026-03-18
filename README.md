@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/logo.png" alt="Logo" width="80" height="80">
+  <img src="src/assets/om-black.svg" alt="Logo" width="80" height="80">
 </p>
 
 <h1 align="center">Osama Mumtaz — Personal Portfolio</h1>
