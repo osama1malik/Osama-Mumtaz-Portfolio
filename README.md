@@ -113,21 +113,6 @@ Osama-Mumtaz-Portfolio/
 
 ---
 
-## 📋 Sections
-
-1. **Hero** — Animated introduction with name, title, and a 3D desktop computer model
-2. **About** — Summary of expertise with animated service cards (TPM, Sr. Engineer, Android Dev, Backend & DevOps)
-3. **Experience** — Career timeline from Web Developer Intern → Jr. Android Dev → Android Dev → Team Lead → Technical Product Manager
-4. **Tech** — Interactive 3D ball grid showcasing proficiency in Kotlin, Java, Python, JavaScript, Django, Firebase, PostgreSQL, Docker, and more
-5. **Projects** — Featured work including:
-   - 🌐 **SnapLingo** — AI-powered cross-platform language learning app (Compose Multiplatform)
-   - 🎨 **Live Wallpapers 4K** — AI wallpaper generator with HD/4K/3D library ([Play Store](https://play.google.com/store/apps/details?id=com.wallpaperapp.hdwallpapers.livewallpaperfree.coolwallpapers))
-   - 📄 **PDF Scanner** — Camera-based document scanner app ([Play Store](https://play.google.com/store/apps/details?id=com.docscan.camscan.pdfscanner.pagescanner.documentscanner))
-6. **Testimonials** — Client feedback and endorsements
-7. **Contact** — Functional email form alongside a rotating 3D Earth globe
-
----
-
 ## ⚡ Getting Started
 
 ### Prerequisites
