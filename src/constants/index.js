@@ -213,30 +213,95 @@ const experiences = [
 ];
 
 const testimonials = [
-  // {
-  //   testimonial:
-  //     "I thought it was impossible to make a website as beautiful as our product, but Osama proved me wrong.",
-  //   name: "MD Mustaqeem",
-  //   designation: "Ecommerce",
-  //   company: "QuickMart",
-  //   image: firstTestimonial,
-  // },
-  // {
-  //   testimonial:
-  //     "I've never met a web developer who truly cares about their clients' success like Osama does.",
-  //   name: "Abdul Raheman",
-  //   designation: "Ecommerce Business",
-  //   company: "justbuyz",
-  //   image: secondTestimonial,
-  // },
-  // {
-  //   testimonial:
-  //     "After Osama optimized our website, our traffic increased by 50%. We can't thank them enough!",
-  //   name: "James Wang",
-  //   designation: "CTO",
-  //   company: "456 Enterprises",
-  //   image: thirdTestimonial,
-  // },
+  {
+    testimonial:
+      "Osama is working with us as a Team lead (android). He manages his team activities, projects & guides them to complete their tasks on time. Osama is talented, dedicated & hard working guy in our team. His development skills are improving day by day & his team is excelling under his guidance. He is highly recommended to work with us always 🤩.",
+    name: "Tanvir Ahmed",
+    designation: "CEO",
+    company: "Funsol Technologies",
+    image: firstTestimonial,
+  },
+  {
+    testimonial:
+      "I wholeheartedly recommend Osama as a remarkable software developer with exceptional coding skills. His proficiency is not only evident in his coding abilities but also in his remarkable talent for swiftly learning and mastering new technologies. Osama's ability to quickly adapt to emerging technologies showcases his dedication to staying at the forefront of the ever-evolving software landscape. His commitment to excellence and continuous learning make him a standout contributor to any development team. I am confident that Osama's coding prowess and quick learning capabilities will significantly contribute to the success of any project or organization he is a part of.",
+    name: "Sarosh Khalid",
+    designation: "COO",
+    company: "Rapidev DMCC",
+    image: secondTestimonial,
+  },
+  {
+    testimonial:
+      "I wholeheartedly recommend Osama Mumtaz, Product Manager at Funsol Technologies, for any organisation seeking a talented and versatile professional. Osama possesses exceptional expertise in Android development, with a deep understanding of its libraries and ecosystems. What sets him apart, however, is his unique blend of skills that extend beyond typical Android development. He has a profound knowledge of both front-end and back-end web development, making him an invaluable asset for any project requiring a comprehensive solution.\nIf you're looking for a dedicated professional who can deliver high-quality solutions, Osama is the ideal candidate to consider. His rare combination of skills, passion for innovation, and dedication to excellence make him an outstanding choice for any team or project. I strongly endorse Osama for any opportunity, and I am confident he will exceed expectations.",
+    name: "Hammad Farooq",
+    designation: "CTO",
+    company: "Funsol Technologies",
+    image: thirdTestimonial,
+  },
+  {
+    testimonial:
+      "Osama is extremely versatile and, from my personal experience, extremely driven as well. He is an expert in android apps crafting and how to become a great leader. He has a very enthusiastic attitude toward his work. At last a great buddy ❤️\nGreat to work with Osama.",
+    name: "Hannan Shahid",
+    designation: "Technical Product Manager",
+    company: "Funsol Technologies",
+    image: secondTestimonial,
+  },
+  {
+    testimonial:
+      "Working alongside Sir Osama as my current project manager has been a joy. His quick thinking, problem-solving abilities, and expertise in mobile application development set him apart.\n He leads with great skill, ensuring that everyone is aligned with the company's goals while fostering a stress-free work environment.\nSir Osama creates a team dynamic where tasks are completed efficiently without unnecessary pressure. His leadership, guidance, and dedication to maintaining a balanced, productive team make him an exceptional manager.",
+    name: "Zunaira Hashmi",
+    designation: "UI/UX Designer",
+    company: "Funsol Technologies",
+    image: firstTestimonial,
+  },
+  {
+    testimonial:
+      "Osama has always been industrious, keen, highly professional and a valuable colleague. His zeal, energy and willingness to embrace challenges is something that I had witnessed in very few along my career. He does each task with ownership and seeks completeness. His ability to stay focused, engaged, while being empathetic with continued good scores on EI assessments, makes him a valuable resource and a trusted colleague.\nI wish him growth and best of luck for his current and future roles. May he stay blessed.",
+    name: "Sania Sana",
+    designation: "HR",
+    company: "Funsol Technologies",
+    image: thirdTestimonial,
+  },
+  {
+    testimonial:
+      "Osama is currently working as a Team lead. His technical are literally amazing, as he has been awarded several titles like top performer, and star of the quarter. He knows how to perfectly manage a team. Last but not the least, his friendly nature makes work fun. Wish him luck and success!",
+    name: "Husne Zahra",
+    designation: "HR",
+    company: "Funsol Technologies",
+    image: firstTestimonial,
+  },
+  {
+    testimonial:
+      "Osama is hardworking and has a very professional attitude toward his work. He possesses great expertise in android development and can be trusted with any task.",
+    name: "Musharib Iqbal",
+    designation: "Lead QA Engineer",
+    company: "Eyewa",
+    image: firstTestimonial,
+  },
+  {
+    testimonial:
+      "Osama is one of the finest android developers from Islamabad. He has worked with different types of android app. would highly recommend him for android work",
+    name: "Muzammil Waqar",
+    designation: "Founder",
+    company: "Platinosol",
+    image: firstTestimonial,
+  },
+  {
+    testimonial:
+      "Osama is a fantastic person to work with, and is not only a multi-skilled and insightful colleague, but also an inspiring strategist. Very good person. Great Team Lead with a very strong problem solving skills. Osama is an asset to any company.",
+    name: "Ibrahim bin Haroon",
+    designation: "Lead UI/UX Designer",
+    company: "Funsol Technologies",
+    image: firstTestimonial,
+  },
+  {
+    testimonial:
+      "Along with being an accomplished developer, Osama is an excellent boss and is proficient towards managing all aspects of team management. He is a teacher, a motivator, a leader and I am honoured to be working with him.",
+    name: "Irfan Karim",
+    designation: "Technical Team Lead Android Developer",
+    company: "Funsol Technologies",
+    image: firstTestimonial,
+  }
+  
 ];
 
 const projects = [
