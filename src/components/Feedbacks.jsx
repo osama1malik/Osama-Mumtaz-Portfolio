@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { testimonials } from "../constants";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const TESTIMONIALS_PER_PAGE = 6;
 
 const PREVIEW_CHAR_LIMIT = 160;
 
@@ -123,8 +126,9 @@ const FeedbackCard = ({ testimonial, name, designation, company, image, onReadMo
 
   useEffect(() => {
     const el = cardRef.current;
+    if (!el) return undefined;
 
-    gsap.fromTo(
+    const animation = gsap.fromTo(
       el,
       {
         opacity: 0,
@@ -142,6 +146,11 @@ const FeedbackCard = ({ testimonial, name, designation, company, image, onReadMo
         },
       }
     );
+
+    return () => {
+      animation.scrollTrigger?.kill();
+      animation.kill();
+    };
   }, []);
 
   return (
@@ -193,6 +202,24 @@ const FeedbackCard = ({ testimonial, name, designation, company, image, onReadMo
 
 const Feedbacks = () => {
   const [selectedTestimonial, setSelectedTestimonial] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const totalPages = Math.ceil(testimonials.length / TESTIMONIALS_PER_PAGE);
+
+  const paginatedTestimonials = useMemo(
+    () =>
+      testimonials.slice(
+        currentPage * TESTIMONIALS_PER_PAGE,
+        (currentPage + 1) * TESTIMONIALS_PER_PAGE
+      ),
+    [currentPage]
+  );
+
+  const goToPage = (page) => {
+    if (page >= 0 && page < totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <>
@@ -203,16 +230,67 @@ const Feedbacks = () => {
             <h2 className={styles.sectionHeadText}>Testimonials.</h2>
           </div>
         </div>
-        <div
-          className={`-mt-20 pb-14 ${styles.paddingX} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center items-stretch`}
-        >
-          {testimonials.map((testimonial) => (
-            <FeedbackCard
-              key={testimonial.name}
-              {...testimonial}
-              onReadMore={setSelectedTestimonial}
-            />
-          ))}
+
+        <div className={`-mt-20 pb-14 ${styles.paddingX}`}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -24 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center items-stretch"
+            >
+              {paginatedTestimonials.map((testimonial) => (
+                <FeedbackCard
+                  key={testimonial.name}
+                  {...testimonial}
+                  onReadMore={setSelectedTestimonial}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+
+          {totalPages > 1 && (
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
+              <button
+                type="button"
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 0}
+                className="px-5 py-2 rounded-xl bg-tertiary text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
+                aria-label="Previous testimonials"
+              >
+                Previous
+              </button>
+
+              <div className="flex items-center gap-2">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => goToPage(index)}
+                    aria-label={`Go to page ${index + 1}`}
+                    aria-current={currentPage === index ? "page" : undefined}
+                    className={`h-2.5 rounded-full transition-all ${
+                      currentPage === index
+                        ? "w-8 bg-[#915eff]"
+                        : "w-2.5 bg-white/30 hover:bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages - 1}
+                className="px-5 py-2 rounded-xl bg-tertiary text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
+                aria-label="Next testimonials"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
