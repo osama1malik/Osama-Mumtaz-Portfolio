@@ -8,9 +8,16 @@ module.exports = {
         primary: "#050816",
         secondary: "#aaa6c3",
         tertiary: "#151030",
+        accent: "#00cea8",
+        brand: "#915EFF",
+        "brand-light": "#bf61ff",
         "black-100": "#100d25",
         "black-200": "#090325",
         "white-100": "#f3f3f3",
+      },
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
       },
       boxShadow: {
         card: "0px 35px 120px -15px #211e35",

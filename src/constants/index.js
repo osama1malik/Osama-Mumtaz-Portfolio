@@ -50,14 +50,43 @@ export const navLinks = [
     title: "About",
   },
   {
+    id: "expertise",
+    title: "Expertise",
+  },
+  {
     id: "work",
-    title: "Work",
+    title: "Experience",
+  },
+  {
+    id: "testimonials",
+    title: "Testimonials",
   },
   {
     id: "contact",
     title: "Contact",
   },
 ];
+
+export const heroStats = [
+  { value: "7+", label: "Years in mobile" },
+  { value: "50+", label: "Apps shipped" },
+  { value: "40+", label: "Engineers led" },
+  { value: "5+", label: "Teams managed" },
+];
+
+export const heroStack = ["Kotlin", "Android", "Compose", "Product", "Firebase", "AI"];
+
+export const heroProfile = {
+  title: "Technical Product Manager & Sr. Software Engineer",
+  location: "Islamabad, Pakistan",
+  company: "Funsol Technologies",
+  bio: "I sit at the intersection of product and engineering — leading teams, shaping roadmaps, and still writing code when it matters.",
+  highlights: [
+    "Leading Android, QA, design & AI teams at Funsol",
+    "Built & scaled utility apps across the Play Store",
+    "BS Software Engineering, COMSATS Islamabad",
+  ],
+};
 
 const services = [
   {
@@ -69,7 +98,7 @@ const services = [
     icon: web,
   },
   {
-    title: "Android Developer",
+    title: "Mobile App Engineer",
     icon: mobile,
   },
   {
