@@ -33,7 +33,7 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-[#00cea8] p-[1px]">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-accent p-[1px]">
             <div className="w-full h-full rounded-[11px] bg-primary flex items-center justify-center">
               <img src={om} alt="Osama Mumtaz" className="w-6 h-6 object-contain" />
             </div>

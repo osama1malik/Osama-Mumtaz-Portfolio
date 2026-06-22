@@ -12,7 +12,7 @@ const fadeUp = (delay = 0) => ({
 
 const HeroBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    <div className="hero-glow hero-glow-purple" />
+    <div className="hero-glow hero-glow-accent" />
     <div className="hero-glow hero-glow-teal" />
     <div className="hero-grid absolute inset-0 opacity-[0.25]" />
     <div className="absolute inset-0 bg-gradient-to-b from-primary via-transparent to-primary" />
@@ -44,8 +44,8 @@ const HeroProfileCard = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0d0b1a] via-[#0d0b1a]/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7">
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#00cea8]" />
-              <span className="text-[#00cea8] text-xs tracking-wide">
+              <span className="w-2 h-2 rounded-full bg-accent" />
+              <span className="text-accent text-xs tracking-wide">
                 Available for new opportunities
               </span>
             </div>
