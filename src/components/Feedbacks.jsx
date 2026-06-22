@@ -1,16 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { styles } from "../styles";
+import SectionHeader from "./SectionHeader";
 import { SectionWrapper } from "../hoc";
 import { testimonials } from "../constants";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const TESTIMONIALS_PER_PAGE = 6;
-
 const PREVIEW_CHAR_LIMIT = 160;
 
 const TestimonialText = ({ text, id, className = "", paragraphClassName = "" }) => {
@@ -80,7 +75,7 @@ const TestimonialModal = ({ testimonial, onClose }) => {
         onClick={onClose}
       />
 
-      <div className="relative bg-black-200 rounded-3xl p-8 sm:p-10 max-w-2xl w-full max-h-[85vh] overflow-y-auto border border-white/10 shadow-2xl">
+      <div className="relative glass-card-static p-8 sm:p-10 max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
         <button
           type="button"
           onClick={onClose}
@@ -90,29 +85,27 @@ const TestimonialModal = ({ testimonial, onClose }) => {
           ×
         </button>
 
-        <p className="text-white font-black text-[48px] leading-none">"</p>
+        <p className="text-brand-light text-4xl leading-none font-serif">&ldquo;</p>
 
         <TestimonialText
           text={text}
           id="testimonial-modal-title"
           className="mt-2"
-          paragraphClassName="text-white tracking-wider text-[18px] leading-relaxed"
+          paragraphClassName="text-white/90 text-[16px] leading-relaxed font-light"
         />
 
         <div className="mt-8 flex justify-between items-center gap-4 border-t border-white/10 pt-6">
           <div className="flex-1 flex flex-col">
-            <p className="text-white font-medium text-[16px]">
-              <span className="blue-text-gradient">@</span> {name}
-            </p>
-            <p className="mt-1 text-secondary text-[12px]">
-              {designation} of {company}
+            <p className="text-white font-medium text-[15px]">{name}</p>
+            <p className="mt-1 text-secondary text-[13px] font-light">
+              {designation} · {company}
             </p>
           </div>
 
           <img
             src={image}
-            alt={`feedback_by-${name}`}
-            className="w-12 h-12 rounded-full object-cover"
+            alt={`feedback by ${name}`}
+            className="w-11 h-11 rounded-full object-cover border border-white/10"
           />
         </div>
       </div>
@@ -120,51 +113,24 @@ const TestimonialModal = ({ testimonial, onClose }) => {
   );
 };
 
-const FeedbackCard = ({ testimonial, name, designation, company, image, onReadMore }) => {
-  const cardRef = React.useRef(null);
+const FeedbackCard = ({ testimonial, name, designation, company, image, onReadMore, index }) => {
   const { preview, isTruncated } = truncateTestimonial(testimonial, PREVIEW_CHAR_LIMIT);
 
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return undefined;
-
-    const animation = gsap.fromTo(
-      el,
-      {
-        opacity: 0,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "top center",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
-
-    return () => {
-      animation.scrollTrigger?.kill();
-      animation.kill();
-    };
-  }, []);
-
   return (
-    <div
-      ref={cardRef}
-      className="bg-black-200 p-10 rounded-3xl xs:w-[320px] w-full h-full flex flex-col min-h-[320px]"
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, delay: (index % 6) * 0.05 }}
+      className="glass-card p-6 sm:p-7 h-full flex flex-col min-h-[280px]"
     >
-      <p className="text-white font-black text-[48px] leading-none">"</p>
+      <p className="text-brand-light text-3xl leading-none font-serif">&ldquo;</p>
 
-      <div className="mt-1 flex flex-col flex-1">
+      <div className="mt-3 flex flex-col flex-1">
         <TestimonialText
           text={preview}
-          className="mt-2 line-clamp-6"
-          paragraphClassName="text-[14px] text-white tracking-wider"
+          className="line-clamp-5"
+          paragraphClassName="text-[14px] text-white/80 font-light leading-relaxed"
         />
 
         {isTruncated && (
@@ -173,30 +139,27 @@ const FeedbackCard = ({ testimonial, name, designation, company, image, onReadMo
             onClick={() =>
               onReadMore({ testimonial, name, designation, company, image })
             }
-            className="mt-4 self-start text-[14px] font-semibold text-[#915eff] hover:text-[#bf61ff] transition-colors"
+            className="mt-4 self-start text-[13px] text-brand-light hover:text-white transition-colors font-light"
           >
-            Read More
+            Read more →
           </button>
         )}
 
-        <div className="mt-auto pt-7 flex justify-between items-center gap-1">
-          <div className="flex-1 flex flex-col">
-            <p className="text-white font-medium text-[16px]">
-              <span className="blue-text-gradient">@</span> {name}
-            </p>
-            <p className="mt-1 text-secondary text-[12px]">
-              {designation} of {company}
-            </p>
-          </div>
-
+        <div className="mt-auto pt-6 flex items-center gap-3 border-t border-white/[0.06]">
           <img
             src={image}
-            alt={`feedback_by-${name}`}
-            className="w-10 h-10 rounded-full object-cover"
+            alt={`feedback by ${name}`}
+            className="w-9 h-9 rounded-full object-cover border border-white/10"
           />
+          <div>
+            <p className="text-white text-[14px] font-medium">{name}</p>
+            <p className="text-secondary text-[12px] font-light mt-0.5">
+              {designation} · {company}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -223,76 +186,73 @@ const Feedbacks = () => {
 
   return (
     <>
-      <div className="mt-12 bg-black-100 rounded-[20px]">
-        <div className={`bg-tertiary rounded-2xl ${styles.padding} min-h-[300px]`}>
-          <div>
-            <p className={styles.sectionSubText}>What others say</p>
-            <h2 className={styles.sectionHeadText}>Testimonials.</h2>
+      <SectionHeader
+        label="Social proof"
+        title="Testimonials"
+        description="What colleagues and leaders say about working with me."
+        align="center"
+      />
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentPage}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.25 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+        >
+          {paginatedTestimonials.map((item, index) => (
+            <FeedbackCard
+              key={item.name}
+              index={index}
+              {...item}
+              onReadMore={setSelectedTestimonial}
+            />
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
+      {totalPages > 1 && (
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
+          <button
+            type="button"
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 0}
+            className="px-5 py-2.5 rounded-xl glass-card-static text-white text-sm font-light disabled:opacity-40 disabled:cursor-not-allowed hover:border-brand/30 transition-colors"
+            aria-label="Previous testimonials"
+          >
+            Previous
+          </button>
+
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => goToPage(index)}
+                aria-label={`Go to page ${index + 1}`}
+                aria-current={currentPage === index ? "page" : undefined}
+                className={`h-2 rounded-full transition-all ${
+                  currentPage === index
+                    ? "w-7 bg-brand"
+                    : "w-2 bg-white/25 hover:bg-white/40"
+                }`}
+              />
+            ))}
           </div>
+
+          <button
+            type="button"
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages - 1}
+            className="px-5 py-2.5 rounded-xl glass-card-static text-white text-sm font-light disabled:opacity-40 disabled:cursor-not-allowed hover:border-brand/30 transition-colors"
+            aria-label="Next testimonials"
+          >
+            Next
+          </button>
         </div>
-
-        <div className={`-mt-20 pb-14 ${styles.paddingX}`}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentPage}
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -24 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center items-stretch"
-            >
-              {paginatedTestimonials.map((testimonial) => (
-                <FeedbackCard
-                  key={testimonial.name}
-                  {...testimonial}
-                  onReadMore={setSelectedTestimonial}
-                />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {totalPages > 1 && (
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button
-                type="button"
-                onClick={() => goToPage(currentPage - 1)}
-                disabled={currentPage === 0}
-                className="px-5 py-2 rounded-xl bg-tertiary text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
-                aria-label="Previous testimonials"
-              >
-                Previous
-              </button>
-
-              <div className="flex items-center gap-2">
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => goToPage(index)}
-                    aria-label={`Go to page ${index + 1}`}
-                    aria-current={currentPage === index ? "page" : undefined}
-                    className={`h-2.5 rounded-full transition-all ${
-                      currentPage === index
-                        ? "w-8 bg-[#915eff]"
-                        : "w-2.5 bg-white/30 hover:bg-white/50"
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === totalPages - 1}
-                className="px-5 py-2 rounded-xl bg-tertiary text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
-                aria-label="Next testimonials"
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      )}
 
       <TestimonialModal
         testimonial={selectedTestimonial}

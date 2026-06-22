@@ -1,27 +1,57 @@
 import React from "react";
-import { FaFacebook, FaFacebookSquare } from "react-icons/fa";
-import { FaInstagram, FaXTwitter, FaLinkedin } from "react-icons/fa6";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaInstagram, FaLinkedin } from "react-icons/fa6";
+
+const socialLinks = [
+  {
+    href: "https://www.instagram.com/osama.1.malik/",
+    icon: FaInstagram,
+    label: "Instagram",
+  },
+  {
+    href: "https://www.facebook.com/osama.1.malik/",
+    icon: FaFacebookSquare,
+    label: "Facebook",
+  },
+  {
+    href: "https://www.linkedin.com/in/osama1malik/",
+    icon: FaLinkedin,
+    label: "LinkedIn",
+  },
+];
 
 const Footer = () => {
   return (
-    <footer className="w-full py-4 bg-black-100/55 text-white flex justify-center gap-6">
-      <a
-        href="https://www.instagram.com/osama.1.malik/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <FaInstagram size={24} />
-      </a>
-      <a href="https://www.facebook.com/osama.1.malik/" target="_blank" rel="noopener noreferrer">
-        <FaFacebookSquare size={24} />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/osama1malik/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <FaLinkedin size={24} />
-      </a>
+    <footer className="relative border-t border-white/[0.06] mt-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-16 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="text-center sm:text-left">
+          <p className="text-white font-medium text-[15px]">Osama Mumtaz</p>
+          <p className="text-secondary text-sm font-light mt-1">
+            Technical Product Manager · Islamabad
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {socialLinks.map(({ href, icon: Icon, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-secondary hover:text-white hover:border-brand/30 transition-colors"
+            >
+              <Icon size={18} />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="border-t border-white/[0.04] py-5 text-center">
+        <p className="text-secondary/70 text-xs font-light">
+          © {new Date().getFullYear()} Osama Mumtaz. All rights reserved.
+        </p>
+      </div>
     </footer>
   );
 };

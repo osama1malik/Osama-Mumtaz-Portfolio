@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import { FaEnvelope, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
-import { styles } from "../styles";
-import { EarthCanvas } from "./canvas";
+import SectionHeader from "./SectionHeader";
 import { SectionWrapper } from "../hoc";
-import { slideIn } from "../utils/motion";
 
 const SuccessModal = ({ isOpen, onClose }) => {
   useEffect(() => {
@@ -40,7 +39,7 @@ const SuccessModal = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
 
-      <div className="relative bg-black-200 rounded-3xl p-8 sm:p-10 max-w-md w-full border border-white/10 shadow-2xl text-center">
+      <div className="relative glass-card-static p-8 sm:p-10 max-w-md w-full text-center shadow-2xl">
         <button
           type="button"
           onClick={onClose}
@@ -50,25 +49,22 @@ const SuccessModal = ({ isOpen, onClose }) => {
           ×
         </button>
 
-        <div className="mx-auto mb-5 w-14 h-14 rounded-full bg-[#915eff]/20 flex items-center justify-center text-[#915eff] text-2xl">
+        <div className="mx-auto mb-5 w-14 h-14 rounded-full bg-brand/15 border border-brand/25 flex items-center justify-center text-brand-light text-2xl">
           ✓
         </div>
 
-        <h3
-          id="contact-success-title"
-          className="text-white font-bold text-[24px] sm:text-[28px]"
-        >
-          Message Sent
+        <h3 id="contact-success-title" className="text-white font-medium text-2xl">
+          Message sent
         </h3>
 
-        <p className="mt-4 text-secondary text-[16px] leading-relaxed">
+        <p className="mt-4 text-secondary text-[15px] font-light leading-relaxed">
           Thank you. I will get back to you as soon as possible.
         </p>
 
         <button
           type="button"
           onClick={onClose}
-          className="mt-8 bg-tertiary py-3 px-8 rounded-xl text-white font-bold shadow-md shadow-primary hover:opacity-90 transition-opacity"
+          className="mt-8 hero-cta-primary px-8 py-3 rounded-xl text-white font-medium"
         >
           Close
         </button>
@@ -77,14 +73,30 @@ const SuccessModal = ({ isOpen, onClose }) => {
   );
 };
 
+const contactLinks = [
+  {
+    label: "Email",
+    value: "osamamumtaz96@gmail.com",
+    href: "mailto:osamamumtaz96@gmail.com",
+    icon: FaEnvelope,
+  },
+  {
+    label: "LinkedIn",
+    value: "osama1malik",
+    href: "https://www.linkedin.com/in/osama1malik/",
+    icon: FaLinkedin,
+  },
+  {
+    label: "WhatsApp",
+    value: "+92 318 5297392",
+    href: "https://wa.me/+923185297392",
+    icon: FaWhatsapp,
+  },
+];
+
 const Contact = () => {
   const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -97,22 +109,14 @@ const Contact = () => {
   );
 
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
-
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!isEmailJsConfigured) {
-      console.error(
-        "EmailJS is not configured. Add VITE_APP_EMAILJS_SERVICE_ID, VITE_APP_EMAILJS_TEMPLATE_ID, and VITE_APP_EMAILJS_PUBLIC_KEY to a .env file."
-      );
       alert(
         "The contact form is not configured yet. Please add your EmailJS credentials to a .env file and restart the dev server."
       );
@@ -138,88 +142,117 @@ const Contact = () => {
         () => {
           setLoading(false);
           setShowSuccessModal(true);
-
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
+          setForm({ name: "", email: "", message: "" });
         },
         (error) => {
           setLoading(false);
           console.error(error);
-
-          alert("Ahh, something went wrong. Please try again.");
+          alert("Something went wrong. Please try again.");
         }
       );
   };
 
   return (
     <>
-      <div
-        className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
-      >
-      <motion.div
-        variants={slideIn("left", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
-      >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
+      <SectionHeader
+        label="Contact"
+        title="Let's work together"
+        description="Have a product idea, role, or collaboration in mind? Send a message — I typically reply within 24 hours."
+        align="center"
+      />
 
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className='mt-12 flex flex-col gap-8'
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-5 sm:gap-6 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="glass-card-static p-6 sm:p-8 space-y-6"
         >
-          <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Name</span>
-            <input
-              type='text'
-              name='name'
-              value={form.name}
-              onChange={handleChange}
-              placeholder="What's your good name?"
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
-            />
-          </label>
-          <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your email</span>
-            <input
-              type='email'
-              name='email'
-              value={form.email}
-              onChange={handleChange}
-              placeholder="What's your web address?"
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
-            />
-          </label>
-          <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Message</span>
-            <textarea
-              rows={7}
-              name='message'
-              value={form.message}
-              onChange={handleChange}
-              placeholder='What you want to say?'
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
-            />
-          </label>
+          <div>
+            <h3 className="text-white text-lg font-medium">Direct channels</h3>
+            <p className="text-secondary text-sm font-light mt-2 leading-relaxed">
+              Prefer reaching out directly? Use any of these — I&apos;m happy to connect.
+            </p>
+          </div>
 
-          <button
-            type='submit'
-            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
-          >
-            {loading ? "Sending..." : "Send"}
-          </button>
-        </form>
-      </motion.div>
+          <div className="space-y-3">
+            {contactLinks.map(({ label, value, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-brand/25 hover:bg-white/[0.05] transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand-light group-hover:text-white transition-colors">
+                  <Icon size={18} />
+                </div>
+                <div>
+                  <p className="text-secondary text-xs font-light">{label}</p>
+                  <p className="text-white text-sm font-light mt-0.5">{value}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </motion.div>
 
-      <motion.div
-        variants={slideIn("right", "tween", 0.2, 1)}
-        className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px]'
-      >
-        <EarthCanvas />
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="glass-card-static p-6 sm:p-8"
+        >
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <label className="flex flex-col gap-2">
+              <span className="text-white/80 text-sm font-light">Your name</span>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+                required
+                className="modern-input py-3.5 px-4 text-white text-[15px] font-light placeholder:text-secondary/60"
+              />
+            </label>
+
+            <label className="flex flex-col gap-2">
+              <span className="text-white/80 text-sm font-light">Your email</span>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@company.com"
+                required
+                className="modern-input py-3.5 px-4 text-white text-[15px] font-light placeholder:text-secondary/60"
+              />
+            </label>
+
+            <label className="flex flex-col gap-2">
+              <span className="text-white/80 text-sm font-light">Message</span>
+              <textarea
+                rows={6}
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                placeholder="Tell me about your project or opportunity..."
+                required
+                className="modern-input py-3.5 px-4 text-white text-[15px] font-light placeholder:text-secondary/60 resize-none"
+              />
+            </label>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="hero-cta-primary mt-2 py-3.5 px-8 rounded-xl text-white text-[15px] font-medium w-fit disabled:opacity-60"
+            >
+              {loading ? "Sending..." : "Send message"}
+            </button>
+          </form>
+        </motion.div>
       </div>
 
       <SuccessModal

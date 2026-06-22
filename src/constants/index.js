@@ -248,20 +248,6 @@ const educations = [
     icon: creator,
     iconBg: "#383E56",
     date: "2016 - 2020",
-  },
-  {
-    title: "FSc (Pre Engineering)",
-    institution: "Fazaia Degree College MRF Kamra",
-    icon: web,
-    iconBg: "#E6DEDD",
-    date: "2013 - 2015",
-  },
-  {
-    title: "Matric",
-    institution: "Fazaia Degree College MRF Kamra",
-    icon: mobile,
-    iconBg: "#383E56",
-    date: "2011 - 2013",
   }
 ];
 

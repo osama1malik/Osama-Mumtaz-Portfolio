@@ -351,3 +351,71 @@
   animation: hero-orbit 24s linear infinite;
   transform-origin: 40px 14px;
 }
+
+.section-shell {
+  position: relative;
+}
+
+.section-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(145, 94, 255, 0.04) 0%,
+    transparent 60%
+  );
+}
+
+.glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(145, 94, 255, 0.25);
+  box-shadow: 0 12px 40px -16px rgba(145, 94, 255, 0.25);
+}
+
+.glass-card-static {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+}
+
+.modern-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.modern-input:focus {
+  outline: none;
+  border-color: rgba(145, 94, 255, 0.45);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tag-pill {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(145, 94, 255, 0.1);
+  border: 1px solid rgba(145, 94, 255, 0.2);
+}

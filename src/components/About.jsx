@@ -1,86 +1,36 @@
-import React, { useRef, useEffect } from "react";
-import { Tilt } from "react-tilt";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
-import { styles } from "../styles";
+import SectionHeader from "./SectionHeader";
 import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const useGsap = (elementRef, animation, delay = 0) => {
-  useEffect(() => {
-    if (elementRef.current) {
-      gsap.fromTo(
-        elementRef.current,
-        animation.from,
-        {
-          ...animation.to,
-          delay,
-          scrollTrigger: {
-            trigger: elementRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
-  }, [elementRef, animation, delay]);
-};
-
-const ServiceCard = ({ index, title, icon }) => {
-  const cardRef = useRef(null);
-  useGsap(cardRef, {
-    from: { opacity: 0, y: 100, scale: 0.8 },
-    to: { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power3.out" },
-  }, index * 0.2);
-
-  return (
-    <Tilt className="xs:w-[250px] w-full">
-      <div ref={cardRef} className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card">
-        <div className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
-          <img src={icon} alt="web-development" className="w-16 h-16 object-contain" />
-          <h3 className="text-white text-[20px] font-bold text-center">{title}</h3>
-        </div>
-      </div>
-    </Tilt>
-  );
-};
+const ServiceCard = ({ title, icon, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.45, delay: index * 0.08 }}
+    className="glass-card p-6 sm:p-7 flex flex-col items-center text-center gap-5 h-full"
+  >
+    <div className="w-14 h-14 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center">
+      <img src={icon} alt={title} className="w-8 h-8 object-contain" />
+    </div>
+    <h3 className="text-white text-[16px] sm:text-[17px] font-medium leading-snug">
+      {title}
+    </h3>
+  </motion.div>
+);
 
 const About = () => {
-  const headingRef = useRef(null);
-  const paragraphRef = useRef(null);
-
-  // Heading Animation
-  useGsap(headingRef, {
-    from: { opacity: 0, x: -50 },
-    to: { opacity: 1, x: 0, duration: 1, ease: "power2.out" },
-  });
-
-  // Paragraph Animation
-  useGsap(paragraphRef, {
-    from: { opacity: 0, y: 50 },
-    to: { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
-  }, 0.3);
-
   return (
     <>
-      <div ref={headingRef}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview.</h2>
-      </div>
+      <SectionHeader
+        label="Introduction"
+        title="Overview"
+        description="Technical Product Manager and Sr. Software Engineer with 6+ years in mobile development — leading cross-functional teams and shipping products that scale."
+      />
 
-      <p ref={paragraphRef} className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]">
-        I am a Technical Product Manager and Sr. Software Engineer with 6+ years of 
-        experience in mobile application development. Skilled in leading cross-functional 
-        teams — Android developers, SQA engineers, UI/UX designers, Python developers, 
-        and DevOps engineers. Proficient in Kotlin, Jetpack Compose, Python APIs, and 
-        DevOps practices. Passionate about building scalable, user-centric apps, optimising 
-        AdMob revenue, and delivering impactful digital solutions.
-      </p>
-
-      <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}

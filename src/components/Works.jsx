@@ -1,146 +1,68 @@
-import React, { useEffect, useRef } from "react";
-import { Tilt } from "react-tilt";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
-import { styles } from "../styles";
+import SectionHeader from "./SectionHeader";
 import { playstore } from "../assets";
-import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
+import { SectionWrapper } from "../hoc";
 
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
+const ProjectCard = ({ name, description, tags, image, source_code_link, index }) => (
+  <motion.article
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.15 }}
+    transition={{ duration: 0.5, delay: index * 0.08 }}
+    className="glass-card overflow-hidden h-full flex flex-col group"
+  >
+    <div className="relative aspect-[16/10] overflow-hidden">
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-full object-cover object-left transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0d0b1a]/80 via-transparent to-transparent" />
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-}) => {
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const el = cardRef.current;
-
-    // ScrollTrigger for animating project cards with stagger
-    gsap.fromTo(
-      el,
-      {
-        opacity: 0,
-        y: 100, // Start off-screen
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",  // Trigger when the top of the element hits the bottom of the viewport
-          end: "top center",    // End when the top reaches the center of the viewport
-          scrub: true,          // Smoothly sync scroll and animation
-          markers: false,       // Set to `true` to see debug markers
-        },
-      }
-    );
-  }, []);
-
-  return (
-    <div ref={cardRef} className="h-full">
-      <Tilt
-        style={{ height: '100%' }}
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className="bg-tertiary p-5 rounded-2xl w-full h-full"
-      >
-        <div className="relative w-full h-[230px]">
-          <img
-            src={image}
-            alt="project_image"
-            className="w-full h-full object-cover object-left rounded-2xl"
-          />
-
-          {source_code_link && (
-            <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-              <div
-                onClick={() => window.open(source_code_link, "_blank")}
-                className="white-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-              >
-                <img
-                  src={playstore}
-                  alt="play store"
-                  className="w-1/2 h-1/2 object-contain"
-                />
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-5">
-          <h3 className="text-white font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary text-[14px]">{description}</p>
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color}`}
-            >
-              #{tag.name}
-            </p>
-          ))}
-        </div>
-      </Tilt>
+      {source_code_link && (
+        <a
+          href={source_code_link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/20"
+          aria-label={`View ${name} on Play Store`}
+        >
+          <img src={playstore} alt="" className="w-5 h-5 object-contain" />
+        </a>
+      )}
     </div>
-  );
-};
+
+    <div className="p-6 sm:p-7 flex flex-col flex-1">
+      <h3 className="text-white text-lg font-medium leading-snug">{name}</h3>
+      <p className="mt-3 text-secondary text-[14px] font-light leading-relaxed line-clamp-4 flex-1">
+        {description}
+      </p>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <span key={`${name}-${tag.name}`} className="tag-pill">
+            {tag.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  </motion.article>
+);
 
 const Works = () => {
-  useEffect(() => {
-    // Stagger effect for project cards
-    gsap.fromTo(
-      ".project-card", // Select all project cards
-      {
-        opacity: 0,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.1, // Stagger delay of 0.3 seconds between each card
-        scrollTrigger: {
-          trigger: ".works-container",
-          start: "top bottom",  // Trigger when the top of the container reaches the bottom
-          end: "top center",
-          scrub: true,
-          markers: false, // Set to true to see debug markers
-        },
-      }
-    );
-  }, []);
-
   return (
     <>
-      <div>
-        <p className={`${styles.sectionSubText}`}>My work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects.</h2>
-      </div>
+      <SectionHeader
+        label="Portfolio"
+        title="Featured Projects"
+        description="Real-world apps I've built and scaled — from AI-powered learning to utility products on the Play Store."
+      />
 
-      <div className="w-full flex">
-        <p className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]">
-          Following projects showcase my skills and experience through real-world examples of my work. Each project is briefly described with links to code repositories and live demos. It reflects my ability to solve complex problems, work with different technologies, and manage projects effectively.
-        </p>
-      </div>
-
-      <div className="works-container mt-20 grid grid-cols-1 md:grid-cols-2 items-stretch gap-7">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
         {projects.map((project, index) => (
-          <div key={`project-${index}`} className="project-card h-full">
-            <ProjectCard index={index} {...project} />
-          </div>
+          <ProjectCard key={project.name} index={index} {...project} />
         ))}
       </div>
     </>
